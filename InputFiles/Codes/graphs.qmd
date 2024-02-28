@@ -1,0 +1,499 @@
+---
+title: "rmsd"
+format: html
+editor: visual
+---
+
+```{r}
+library('Peptides') 
+library('ggplot2')
+library('readr')
+
+#vmd analysis timeline secondary structure
+#gmx dodssp
+#mdtraj / md analysis
+```
+
+```{r}
+#these are all with carbon alpha
+# CAHS
+rmsd1 <- read.table(file = 'rmsd_md_1.xvg', sep = '', skip = 18)
+rmsd2 <- read.table(file = 'rmsd_md_2.xvg', sep = '', skip = 18)
+rmsd3 <- read.table(file = 'rmsd_md_3.xvg', sep = '', skip = 18)
+rmsd4 <- read.table(file = 'rmsd_md_4.xvg', sep = '', skip = 18)
+rmsd5 <- read.table(file = 'rmsd_md_5.xvg', sep = '', skip = 18)
+rmsd6 <- read.table(file = 'rmsd_md_6.xvg', sep = '', skip = 18)
+rmsd7 <- read.table(file = 'rmsd_md_7.xvg', sep = '', skip = 18)
+rmsd8 <- read.table(file = 'rmsd_md_8.xvg', sep = '', skip = 18)
+rmsd9 <- read.table(file = 'rmsd_md_9.xvg', sep = '', skip = 18)
+rmsd10 <- read.table(file = 'rmsd_md_10.xvg', sep = '', skip = 18)
+rmsd11 <- read.table(file = 'rmsd_md_11.xvg', sep = '', skip = 18)
+
+#CAHS M7
+rmsd1M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_1M7.xvg', sep = '', skip = 18)
+rmsd2M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_2M7.xvg', sep = '', skip = 18)
+rmsd3M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_3M7.xvg', sep = '', skip = 18)
+rmsd4M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_4M7.xvg', sep = '', skip = 18)
+rmsd5M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_5M7.xvg', sep = '', skip = 18)
+rmsd6M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_6M7.xvg', sep = '', skip = 18)
+rmsd7M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_7M7.xvg', sep = '', skip = 18)
+rmsd8M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_8M7.xvg', sep = '', skip = 18)
+rmsd9M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_9M7.xvg', sep = '', skip = 18)
+rmsd10M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_10M7.xvg', sep = '', skip = 18)
+rmsd11M7 <- read.table(file = 'rmsd_cahsM7/rmsd_md_11M7.xvg', sep = '', skip = 18)
+
+# Control
+rmsd1c <- read.table(file = 'rmsd_md_1c.xvg', sep = '', skip = 18)
+rmsd2c <- read.table(file = 'rmsd_md_2c.xvg', sep = '', skip = 18)
+rmsd3c <- read.table(file = 'rmsd_md_3c.xvg', sep = '', skip = 18)
+rmsd4c <- read.table(file = 'rmsd_md_4c.xvg', sep = '', skip = 18)
+rmsd5c <- read.table(file = 'rmsd_md_5c.xvg', sep = '', skip = 18)
+rmsd6c <- read.table(file = 'rmsd_md_6c.xvg', sep = '', skip = 18)
+rmsd7c <- read.table(file = 'rmsd_md_7c.xvg', sep = '', skip = 18)
+rmsd8c <- read.table(file = 'rmsd_md_8c.xvg', sep = '', skip = 18)
+rmsd9c <- read.table(file = 'rmsd_md_9c.xvg', sep = '', skip = 18)
+rmsd10c <- read.table(file = 'rmsd_md_10c.xvg', sep = '', skip = 18)
+rmsd11c <- read.table(file = 'rmsd_md_11c.xvg', sep = '', skip = 18)
+#helical
+rmsd12c <- read.table(file = 'rmsd_md_12c.xvg', sep = '', skip = 18)
+
+#control M7
+rmsd1cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_1cM7.xvg', sep = '', skip = 18)
+rmsd2cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_2cM7.xvg', sep = '', skip = 18)
+rmsd3cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_3cM7.xvg', sep = '', skip = 18)
+rmsd4cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_4cM7.xvg', sep = '', skip = 18)
+rmsd5cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_5cM7.xvg', sep = '', skip = 18)
+rmsd6cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_6cM7.xvg', sep = '', skip = 18)
+rmsd7cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_7cM7.xvg', sep = '', skip = 18)
+rmsd8cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_8cM7.xvg', sep = '', skip = 18)
+rmsd9cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_9cM7.xvg', sep = '', skip = 18)
+rmsd10cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_10cM7.xvg', sep = '', skip = 18)
+rmsd11cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_11cM7.xvg', sep = '', skip = 18)
+
+#conrtol helical
+rmsd12cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_12c.xvg', sep = '', skip = 18)
+rmsd13cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_13c.xvg', sep = '', skip = 18)
+rmsd14cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_14c.xvg', sep = '', skip = 18)
+rmsd15cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_15c.xvg', sep = '', skip = 18)
+rmsd16cM7 <- read.table(file = 'rmsd_controlM7/rmsd_md_16c.xvg', sep = '', skip = 18)
+```
+
+```{r}
+g1 <- ggplot(rmsd1[seq(1, nrow(rmsd1), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 1") + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g1
+subset_data <- rmsd1[1:40001, ]
+g500 <- ggplot(subset_data[seq(1, nrow(subset_data), by = 1),], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 1") + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g500
+
+
+```
+
+```{r}
+g2 <- ggplot(rmsd2[seq(1, nrow(rmsd2), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 2") + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g2
+```
+
+```{r}
+g3 <- ggplot(rmsd3[seq(1, nrow(rmsd3), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 3") + theme_linedraw()+ geom_smooth(linewidth = 1, se = F, color = 'red')
+g3
+```
+
+```{r}
+g4 <- ggplot(rmsd4[seq(1, nrow(rmsd4), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 4") + theme_linedraw()+ geom_smooth(linewidth = 1, se = F, color = 'red')
+g4
+```
+
+```{r}
+g5 <- ggplot(rmsd5[seq(1, nrow(rmsd5), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 5") + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g5
+```
+
+```{r}
+g6 <- ggplot(rmsd6[seq(1, nrow(rmsd6), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 6" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red') 
+g6
+```
+
+```{r}
+g7 <- ggplot(rmsd7[seq(1, nrow(rmsd7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g7
+```
+
+```{r}
+g8 <- ggplot(rmsd8[seq(1, nrow(rmsd8), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 8" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g8
+```
+
+```{r}
+g9 <- ggplot(rmsd9[seq(1, nrow(rmsd9), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 9" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g9
+```
+
+```{r}
+g10 <- ggplot(rmsd10[seq(1, nrow(rmsd10), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 10" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g10
+```
+
+```{r}
+g11 <- ggplot(rmsd11[seq(1, nrow(rmsd11), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 11" ) + theme_linedraw() + geom_smooth(size = 1, se = F, color = 'red')
+g11
+```
+
+```{r}
+g1c <- ggplot(rmsd1c[seq(1, nrow(rmsd1c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 1c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g1c
+```
+
+```{r}
+g2c <- ggplot(rmsd2c[seq(1, nrow(rmsd2c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 2c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g2c
+```
+
+```{r}
+g3c <- ggplot(rmsd3c[seq(1, nrow(rmsd3c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 3c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g3c
+```
+
+```{r}
+g4c <- ggplot(rmsd4c[seq(1, nrow(rmsd4c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 4c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g4c
+```
+
+```{r}
+g5c <- ggplot(rmsd5c[seq(1, nrow(rmsd5c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 5c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g5c
+```
+
+```{r}
+g6c <- ggplot(rmsd6c[seq(1, nrow(rmsd6c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 6c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g6c
+```
+
+```{r}
+g7c <- ggplot(rmsd7c[seq(1, nrow(rmsd7c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 7c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g7c
+```
+
+```{r}
+g8c <- ggplot(rmsd8c[seq(1, nrow(rmsd8c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 8c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g8c
+```
+
+```{r}
+g9c <- ggplot(rmsd9c[seq(1, nrow(rmsd9c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 9c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g9c
+```
+
+```{r}
+g10c <- ggplot(rmsd10c[seq(1, nrow(rmsd10c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 10c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g10c
+```
+
+```{r}
+g11c <- ggplot(rmsd11c[seq(1, nrow(rmsd11c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 11c" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g11c
+```
+
+```{r}
+g12c <- ggplot(rmsd12c[seq(1, nrow(rmsd12c), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "Control M0" ) + theme_linedraw()+ylim(0, 0.65)
+g12c
+```
+
+\###
+
+M7
+
+\###
+
+cahs M7
+
+```{r}
+g1M7 <- ggplot(rmsd1M7[seq(1, nrow(rmsd1M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 1 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g1M7
+```
+
+```{r}
+g2M7 <- ggplot(rmsd2M7[seq(1, nrow(rmsd2M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 2 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g2M7
+```
+
+```{r}
+g3M7 <- ggplot(rmsd3M7[seq(1, nrow(rmsd3M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 3 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g3M7
+```
+
+```{r}
+g4M7 <- ggplot(rmsd4M7[seq(1, nrow(rmsd4M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 4 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g4M7
+```
+
+```{r}
+g5M7 <- ggplot(rmsd5M7[seq(1, nrow(rmsd5M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 5 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g5M7
+```
+
+```{r}
+g6M7 <- ggplot(rmsd6M7[seq(1, nrow(rmsd6M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 6 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g6M7
+```
+
+```{r}
+g7M7 <- ggplot(rmsd7M7[seq(1, nrow(rmsd7M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 7 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g7M7
+```
+
+```{r}
+g8M7 <- ggplot(rmsd8M7[seq(1, nrow(rmsd8M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 8 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g8M7
+```
+
+```{r}
+g9M7 <- ggplot(rmsd9M7[seq(1, nrow(rmsd9M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 9 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g9M7
+```
+
+```{r}
+g10M7 <- ggplot(rmsd10M7[seq(1, nrow(rmsd10M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 10 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g10M7
+```
+
+```{r}
+g11M7 <- ggplot(rmsd11M7[seq(1, nrow(rmsd11M7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 11 M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g11M7
+```
+
+\#################
+
+control M7
+
+\#################
+
+```{r}
+g1cM7 <- ggplot(rmsd1cM7[seq(1, nrow(rmsd1cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 1c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g1cM7
+```
+
+```{r}
+g2cM7 <- ggplot(rmsd2cM7[seq(1, nrow(rmsd2cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 2c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g2cM7
+```
+
+```{r}
+g3cM7 <- ggplot(rmsd3cM7[seq(1, nrow(rmsd3cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 3c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g3cM7
+```
+
+```{r}
+g4cM7 <- ggplot(rmsd4cM7[seq(1, nrow(rmsd4cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 4c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g4cM7
+```
+
+```{r}
+g5cM7 <- ggplot(rmsd5cM7[seq(1, nrow(rmsd5cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 5c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g5cM7
+```
+
+```{r}
+g6cM7 <- ggplot(rmsd6cM7[seq(1, nrow(rmsd6cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 6c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g6cM7
+```
+
+```{r}
+g7cM7 <- ggplot(rmsd7cM7[seq(1, nrow(rmsd7cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 7c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g7cM7
+```
+
+```{r}
+g8cM7 <- ggplot(rmsd8cM7[seq(1, nrow(rmsd8cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 8c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g8cM7
+```
+
+```{r}
+g9cM7 <- ggplot(rmsd9cM7[seq(1, nrow(rmsd9cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 9c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g9cM7
+```
+
+```{r}
+g10cM7 <- ggplot(rmsd10cM7[seq(1, nrow(rmsd10cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 10c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g10cM7
+```
+
+```{r}
+g11cM7 <- ggplot(rmsd11cM7[seq(1, nrow(rmsd11cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 11c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g11cM7
+```
+
+\##
+
+helical control
+
+\##
+
+```{r}
+g12cM7 <- ggplot(rmsd12cM7[seq(1, nrow(rmsd12cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 12c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g12cM7
+```
+
+```{r}
+g13cM7 <- ggplot(rmsd13cM7[seq(1, nrow(rmsd13cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 13c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g13cM7
+```
+
+```{r}
+g14cM7 <- ggplot(rmsd14cM7[seq(1, nrow(rmsd14cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 14c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g14cM7
+```
+
+```{r}
+g15cM7 <- ggplot(rmsd15cM7[seq(1, nrow(rmsd15cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 15c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g15cM7
+```
+
+```{r}
+g16cM7 <- ggplot(rmsd16cM7[seq(1, nrow(rmsd16cM7), by = 1), ], aes(V1, V2)) + geom_line(color = 'blue') +labs(x = "time (ns)", y = "RMSD", title = "simulation 16c M7" ) + theme_linedraw() + geom_smooth(linewidth = 1, se = F, color = 'red')
+g16cM7
+```
+
+### \#### RMSD analysis \####
+
+```{r}
+subsetting_data <- function(data) {
+  data[seq(1, nrow(data), by = 1), ]
+}
+```
+
+```{r}
+plot <- ggplot() +
+  geom_line(data = subsetting_data(subset_data), aes(V1, V2), color = '#ececa3')+
+  geom_line(data = subsetting_data(rmsd2), aes(V1, V2), color = '#b5e550')+
+  geom_line(data = subsetting_data(rmsd3), aes(V1, V2), color = '#abc32f')+
+  geom_line(data = subsetting_data(rmsd4), aes(V1, V2), color = '#809c13')+
+  geom_line(data = subsetting_data(rmsd6), aes(V1, V2), color = '#607c3c') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD CAHS M0")+
+  theme_linedraw()+
+  ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15,color = '#009800'),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+  
+
+print(plot)
+
+
+```
+
+```{r}
+plot <- ggplot() +
+  geom_line(data = subsetting_data(rmsd7), aes(V1, V2), color = '#ececa3')+
+  geom_line(data = subsetting_data(rmsd8), aes(V1, V2), color = '#b5e550')+
+  geom_line(data = subsetting_data(rmsd9), aes(V1, V2), color = '#abc32f')+
+  geom_line(data = subsetting_data(rmsd10), aes(V1, V2), color = '#809c13')+
+  geom_line(data = subsetting_data(rmsd11), aes(V1, V2), color = '#607c3c') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD CAHS M0") +
+  theme_linedraw()+
+  ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15,color = '#009800'),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+
+print(plot)
+```
+
+```{r}
+plot <- ggplot() +
+  geom_line(data = subsetting_data(rmsd1c), aes(V1, V2), color = '#D3E2EF') +
+  geom_line(data = subsetting_data(rmsd2c), aes(V1, V2), color = '#bccbd8') +
+  geom_line(data = subsetting_data(rmsd3c), aes(V1, V2), color = '#a5b4c2') +
+  geom_line(data = subsetting_data(rmsd4c), aes(V1, V2), color = '#8e9da8') +
+  geom_line(data = subsetting_data(rmsd6c), aes(V1, V2), color = '#606f7d') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD Control M0") +
+  theme_linedraw()+
+  ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+  
+
+print(plot)
+```
+
+\##
+
+M7
+
+\##
+
+```{r}
+plot <- ggplot() +
+    geom_line(data = subsetting_data(rmsd1M7), aes(V1, V2), color = '#ececa3')+
+  geom_line(data = subsetting_data(rmsd2M7), aes(V1, V2), color = '#b5e550')+
+  geom_line(data = subsetting_data(rmsd3M7), aes(V1, V2), color = '#abc32f')+
+  geom_line(data = subsetting_data(rmsd4M7), aes(V1, V2), color = '#809c13')+
+  geom_line(data = subsetting_data(rmsd6M7), aes(V1, V2), color = '#607c3c') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD CAHS M7") +
+  theme_linedraw()+ylim(0, 0.65)+
+  
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15,color = '#009800'),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+
+print(plot)
+```
+
+```{r}
+plot <- ggplot() +
+    geom_line(data = subsetting_data(rmsd7M7), aes(V1, V2), color = '#ececa3')+
+  geom_line(data = subsetting_data(rmsd8M7), aes(V1, V2), color = '#b5e550')+
+  geom_line(data = subsetting_data(rmsd9M7), aes(V1, V2), color = '#abc32f')+
+  geom_line(data = subsetting_data(rmsd10M7), aes(V1, V2), color = '#809c13')+
+  geom_line(data = subsetting_data(rmsd11M7), aes(V1, V2), color = '#607c3c') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD CAHS M7") +
+  theme_linedraw()+ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15,color = '#009800'),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+
+print(plot)
+
+```
+
+```{r}
+plot <- ggplot() +
+  geom_line(data = subsetting_data(rmsd1cM7), aes(V1, V2), color = '#D3E2EF') +
+  geom_line(data = subsetting_data(rmsd2cM7), aes(V1, V2), color = '#bccbd8') +
+  geom_line(data = subsetting_data(rmsd3cM7), aes(V1, V2), color = '#a5b4c2') +
+  geom_line(data = subsetting_data(rmsd4cM7), aes(V1, V2), color = '#8e9da8') +
+  geom_line(data = subsetting_data(rmsd6cM7), aes(V1, V2), color = '#606f7d') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD Control M7") +
+  theme_linedraw()+
+  ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+
+print(plot)
+```
+
+```{r}
+plot <- ggplot() +
+  geom_line(data = subsetting_data(rmsd12cM7), aes(V1, V2), color = '#D3E2EF') +
+  geom_line(data = subsetting_data(rmsd13cM7), aes(V1, V2), color = '#bccbd8') +
+  geom_line(data = subsetting_data(rmsd14cM7), aes(V1, V2), color = '#a5b4c2') +
+  geom_line(data = subsetting_data(rmsd15cM7), aes(V1, V2), color = '#8e9da8') +
+  geom_line(data = subsetting_data(rmsd16cM7), aes(V1, V2), color = '#606f7d') +
+  labs(x = "time (ns)", y = "RMSD", title = "RMSD Control M7") +
+  theme_linedraw()+
+  ylim(0, 0.65)+
+  xlim(0, 1001)+
+  theme(axis.text = element_text(size = 20),axis.title = element_text(size = 20),    plot.title = element_text(size = 15),
+  panel.grid.major = element_blank() ,panel.grid.minor = element_blank())+
+  geom_vline(xintercept = 500,linetype = "solid", color = "black")
+  
+
+print(plot)
+```
